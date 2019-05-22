@@ -25,6 +25,7 @@ extension DropDown {
 		appearance.animationduration = DPDConstant.Animation.Duration
 		appearance.textColor = DPDConstant.UI.TextColor
         appearance.selectedTextColor = DPDConstant.UI.SelectedTextColor
+        appearance.selectedTextFont = DPDConstant.UI.SelectedTextFont
 		appearance.textFont = DPDConstant.UI.TextFont
 	}
 
