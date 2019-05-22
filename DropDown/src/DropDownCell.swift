@@ -16,6 +16,7 @@ open class DropDownCell: UITableViewCell {
 	var selectedBackgroundColor: UIColor?
     var highlightTextColor: UIColor?
     var normalTextColor: UIColor?
+    var selectedTextFont: UIFont?
 
 }
 
@@ -53,9 +54,11 @@ extension DropDownCell {
 				if selected {
 					self.backgroundColor = selectedBackgroundColor
                     self.optionLabel.textColor = self.highlightTextColor
+                    self.textLabel?.font = self.selectedTextFont
 				} else {
 					self.backgroundColor = .clear
                     self.optionLabel.textColor = self.normalTextColor
+                    self.textLabel?.font = self.selectedTextFont
 				}
 			}
 		}

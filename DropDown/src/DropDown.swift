@@ -350,6 +350,10 @@ public final class DropDown: UIView {
 		didSet { reloadAllComponents() }
 	}
     
+    @objc public dynamic var selectedTextFont = DPDConstant.UI.SelectedTextFont {
+        didSet { reloadAllComponents() }
+    }
+    
     /**
      The NIB to use for DropDownCells
      
@@ -1122,6 +1126,22 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
         hide()
     
 	}
+    
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       return 20
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
+    }
 
 }
 
