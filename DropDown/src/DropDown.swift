@@ -42,7 +42,8 @@ extension UIBarButtonItem: AnchorView {
 
 /// A Material Design drop down in replacement for `UIPickerView`.
 public final class DropDown: UIView {
-
+    let headerFooterHeight: CGFloat = 20
+    
 	//TODO: handle iOS 7 landscape mode
 
 	/// The dismiss mode for a drop down.
@@ -1023,7 +1024,7 @@ extension DropDown {
 
 	/// Returns the height needed to display all cells.
 	fileprivate var tableHeight: CGFloat {
-		return tableView.rowHeight * CGFloat(dataSource.count)
+		return tableView.rowHeight * CGFloat(dataSource.count) + (headerFooterHeight * 2)
 	}
 
     //MARK: Objective-C methods for converting the Swift type Index
@@ -1137,11 +1138,11 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-       return 20
+       return headerFooterHeight
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        return headerFooterHeight
     }
 
 }
