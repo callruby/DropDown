@@ -71,7 +71,10 @@ public final class DropDown: UIView {
 
 		/// The drop down will show below or will not be showed if not enough space.
 		case bottom
-
+        
+        /// The drop down will show up in the center of the view.
+        case center
+        
 	}
 
 	//MARK: - Properties
@@ -696,7 +699,10 @@ extension DropDown {
 			case .top:
 				layout = computeLayoutForTopDisplay(window: window)
 				direction = .top
-			}
+            case .center:
+                layout = computeLayoutForCenterDisplay(window: window)
+                direction = .center
+            }
 		}
 		
 		constraintWidthToFittingSizeIfNecessary(layout: &layout)
@@ -733,6 +739,31 @@ extension DropDown {
 		
 		return (x, y, width, offscreenHeight)
 	}
+    
+    fileprivate func computeLayoutForCenterDisplay(window: UIWindow) -> ComputeLayoutTuple {
+        var offscreenHeight: CGFloat = 0
+        
+        let width = self.width ?? (anchorView?.plainView.bounds.width ?? fittingWidth()) - bottomOffset.x
+        
+        let anchorViewX = anchorView?.plainView.windowFrame?.minX ?? window.frame.midX - (width / 2)
+        
+        let x = anchorViewX + bottomOffset.x
+        let y = window.frame.midY - (tableHeight / 2)
+        
+        let maxY = y + tableHeight
+        let windowMaxY = window.bounds.maxY - DPDConstant.UI.HeightPadding - offsetFromWindowBottom
+        
+        let keyboardListener = KeyboardListener.sharedInstance
+        let keyboardMinY = keyboardListener.keyboardFrame.minY - DPDConstant.UI.HeightPadding
+        
+        if keyboardListener.isVisible && maxY > keyboardMinY {
+            offscreenHeight = abs(maxY - keyboardMinY)
+        } else if maxY > windowMaxY {
+            offscreenHeight = abs(maxY - windowMaxY)
+        }
+        
+        return (x, window.frame.midY - (tableHeight / 2), width, offscreenHeight)
+    }
 
 	fileprivate func computeLayoutForTopDisplay(window: UIWindow) -> ComputeLayoutTuple {
 		var offscreenHeight: CGFloat = 0
